@@ -23,7 +23,7 @@ public class VistaMenuPrincipal extends JFrame {
         String rol = usuario instanceof Administrador ? "ADMINISTRADOR"
                 : usuario instanceof Cliente ? "CLIENTE" : "DESCONOCIDO";
 
-        setTitle("Men\u00fa Principal");
+        setTitle("Menu Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 400);
         setLocationRelativeTo(null);
@@ -35,7 +35,7 @@ public class VistaMenuPrincipal extends JFrame {
         lblBienvenida.setFont(new Font("Arial", Font.BOLD, 16));
         add(lblBienvenida, BorderLayout.CENTER);
 
-        JButton btnCerrar = new JButton("Cerrar Sesi\u00f3n");
+        JButton btnCerrar = new JButton("Cerrar Sesion");
         btnCerrar.addActionListener(e -> cerrarSesion());
         add(btnCerrar, BorderLayout.SOUTH);
     }
