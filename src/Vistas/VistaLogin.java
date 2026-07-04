@@ -15,7 +15,7 @@ public class VistaLogin extends JFrame {
     }
 
     private void initUI() {
-        setTitle("Sistema de Gesti\u00f3n de Tickets");
+        setTitle("Sistema de Gestion de Tickets");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
         setLocationRelativeTo(null);
@@ -25,11 +25,11 @@ public class VistaLogin extends JFrame {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.gridwidth = GridBagConstraints.REMAINDER;
 
-        JLabel lblTitulo = new JLabel("Sistema de Gesti\u00f3n de Tickets");
+        JLabel lblTitulo = new JLabel("Sistema de Gestion de Tickets");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
         add(lblTitulo, gbc);
 
-        JLabel lblSeleccione = new JLabel("Seleccione su tipo de inicio de sesi\u00f3n:");
+        JLabel lblSeleccione = new JLabel("Seleccione su tipo de inicio de sesion:");
         add(lblSeleccione, gbc);
 
         JButton btnCliente = new JButton("Iniciar como Cliente");
@@ -52,7 +52,7 @@ public class VistaLogin extends JFrame {
         JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
         panel.add(new JLabel("Usuario:"));
         panel.add(txtUser);
-        panel.add(new JLabel("Contrase\u00f1a:"));
+        panel.add(new JLabel("Contraseña:"));
         panel.add(txtPass);
 
         int result = JOptionPane.showConfirmDialog(this, panel,
@@ -68,7 +68,7 @@ public class VistaLogin extends JFrame {
                 abrirMenuPrincipal();
             } else {
                 JOptionPane.showMessageDialog(this,
-                        "Contrase\u00f1a incorrecta",
+                        "Contraseña incorrecta",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
