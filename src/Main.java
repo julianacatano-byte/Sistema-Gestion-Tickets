@@ -1,5 +1,3 @@
-import Vistas.VistaLogin;
-
 import javax.swing.*;
 
 void main() {
