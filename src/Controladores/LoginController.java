@@ -1,32 +1,28 @@
 package Controladores;
 
-import Modelos.Administrador;
-import Modelos.Cliente;
-import Modelos.Usuario;
-
 public class LoginController {
-    private static final String ADMIN_PASSWORD = "admin123";
-    private Usuario usuarioActual;
+    private final AdminLoginController adminLoginController;
+    private final ClienteController clienteController;
 
-    public Usuario iniciarSesionCliente() {
-        usuarioActual = new Cliente("Invitado", "cliente@mail.com");
-        return usuarioActual;
+    public LoginController(AdminLoginController adminLoginController,
+                           ClienteController clienteController) {
+        this.adminLoginController = adminLoginController;
+        this.clienteController = clienteController;
     }
 
-    public Usuario iniciarSesionAdmin(String username, String password) {
-        Administrador admin = new Administrador(username, ADMIN_PASSWORD);
-        if (admin.validarPassword(password)) {
-            usuarioActual = admin;
-            return usuarioActual;
-        }
-        return null;
+    public void onAdministradorClick() {
+        handleAdministradorClick();
     }
 
-    public boolean esAdmin() {
-        return usuarioActual != null && usuarioActual.esAdmin();
+    public void onClienteClick() {
+        handleClienteClick();
     }
 
-    public Usuario getUsuarioActual() {
-        return usuarioActual;
+    private void handleAdministradorClick() {
+        adminLoginController.mostrarLogin();
+    }
+
+    private void handleClienteClick() {
+        clienteController.mostrarFormulario();
     }
 }
