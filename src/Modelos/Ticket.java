@@ -3,6 +3,8 @@ package Modelos;
 import java.util.Stack;
 
 public class Ticket {
+    private static int contador = 0;
+    private int id;
 
     private String nombreCliente;
     private String asunto;
@@ -12,10 +14,15 @@ public class Ticket {
     private Stack<String> historialEstados = new Stack<>();
 
     public Ticket(String nombreCliente, String asunto, String prioridad) {
+        this.id = ++contador;
         this.nombreCliente = nombreCliente;
         this.asunto = asunto;
         this.prioridad = prioridad;
         this.estado = "PENDIENTE";
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombreCliente() {
@@ -28,6 +35,10 @@ public class Ticket {
 
     public String getPrioridad() {
         return prioridad;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
     }
 
     public String getEstado() {

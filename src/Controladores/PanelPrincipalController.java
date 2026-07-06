@@ -37,8 +37,8 @@ public class PanelPrincipalController {
                 t.setEstado("ATENDIDO");
                 JOptionPane.showMessageDialog(
                         vista.getPanel(),
-                        "Ticket atendido:\nCliente: " + t.getNombreCliente() +
-                                "\nAsunto: " + t.getAsunto(),
+                        "Ticket atendido:Cliente: " + t.getNombreCliente() +
+                                "Asunto: " + t.getAsunto(),
                         "Ticket Atendido",
                         JOptionPane.INFORMATION_MESSAGE
                 );
@@ -48,7 +48,7 @@ public class PanelPrincipalController {
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
                 "No hay tickets pendientes por atender.",
-                "Informaci\u00f3n",
+                "Informacion",
                 JOptionPane.INFORMATION_MESSAGE
         );
     }
@@ -60,13 +60,13 @@ public class PanelPrincipalController {
             if ("PENDIENTE".equals(t.getEstado())) {
                 hayPendientes = true;
                 sb.append("Cliente: ").append(t.getNombreCliente())
-                        .append("\nAsunto: ").append(t.getAsunto())
-                        .append("\nPrioridad: ").append(t.getPrioridad())
-                        .append("\n\n");
+                        .append("Asunto: ").append(t.getAsunto())
+                        .append("Prioridad: ").append(t.getPrioridad())
+                        .append(" ");
             }
         }
         if (!hayPendientes) {
-            sb.append("No hay tickets pendientes de atenci\u00f3n.");
+            sb.append("No hay tickets pendientes de atencion.");
         }
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
