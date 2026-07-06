@@ -4,6 +4,8 @@ import Controladores.PanelPrincipalController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -12,12 +14,25 @@ public class PanelPrincipal {
     private JButton atenderTicketButton;
     private JButton consultarTicketPendienteDeButton;
     private JButton consultarHistorialDeEstadoButton;
+    private JButton gestionarTicketsEnAtencionButton;
     private final PanelPrincipalController controller;
 
     public PanelPrincipal(PanelPrincipalController controller) {
         this.controller = controller;
         inicializarComponentes();
         configurarEventos();
+        gestionarTicketsEnAtencionButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
+        consultarTicketPendienteDeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
 
     private void inicializarComponentes() {
