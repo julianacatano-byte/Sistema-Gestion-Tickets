@@ -1,7 +1,5 @@
 package Modelos;
 
-import java.util.Stack;
-
 public class Ticket {
 
     private String nombreCliente;
@@ -9,13 +7,19 @@ public class Ticket {
     private String prioridad;
     private String estado;
 
-    private Stack<String> historialEstados = new Stack<>();
+    private Pila historialEstados;
 
     public Ticket(String nombreCliente, String asunto, String prioridad) {
+
         this.nombreCliente = nombreCliente;
         this.asunto = asunto;
         this.prioridad = prioridad;
-        this.estado = "PENDIENTE";
+
+        estado = "Nuevo";
+
+        historialEstados = new Pila();
+
+        historialEstados.push(estado);
     }
 
     public String getNombreCliente() {
@@ -38,44 +42,34 @@ public class Ticket {
         cambiarEstado(estado);
     }
 
+    // Cambiar estado del ticket
     public void cambiarEstado(String nuevoEstado) {
 
-        if (historialEstados.isEmpty()) {
-            historialEstados.push(estado);
-        }
-
         estado = nuevoEstado;
+
         historialEstados.push(estado);
     }
-
+    
     public void mostrarHistorial() {
 
-        if (historialEstados.isEmpty()) {
-            System.out.println("No hay historial de estados.");
-            return;
-        }
-
-        System.out.println("Historial del ticket:");
-
-        for (String estado : historialEstados) {
-            System.out.println(estado);
-        }
+        historialEstados.mostrar();
     }
+
 
     public void deshacerEstado() {
 
         if (historialEstados.size() <= 1) {
-            System.out.println("No hay estados para deshacer.");
+
+            System.out.println("No se puede deshacer el estado inicial.");
             return;
         }
+
         historialEstados.pop();
         estado = historialEstados.peek();
-
         System.out.println("Estado actual: " + estado);
     }
 
-    public Stack<String> getHistorialEstados() {
+    public Pila getHistorialEstados() {
         return historialEstados;
     }
-
 }
