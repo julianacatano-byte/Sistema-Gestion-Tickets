@@ -1,29 +1,88 @@
 package Modelos;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class ColaTickets {
 
-    private Queue<Ticket> cola;
+    NodoCola front;
+    NodoCola back;
+    int tamaño;
 
     public ColaTickets() {
-        cola = new LinkedList<>();
+        front = null;
+        back = null;
+        tamaño = 0;
     }
 
-    public void encolar(Ticket ticket) {
-        cola.offer(ticket);
+    // Encolar
+    public void encolar(Ticket dato) {
+
+        NodoCola nuevo = new NodoCola(dato);
+
+        if (isEmpty()) {
+            front = nuevo;
+            back = nuevo;
+        } else {
+            back.siguiente = nuevo;
+            back = nuevo;
+        }
+
+        tamaño++;
     }
+
 
     public Ticket desencolar() {
-        return cola.poll();
+
+        if (isEmpty()) {
+            System.out.println("La cola está vacía");
+            return null;
+        }
+
+        Ticket dato = front.dato;
+
+        front = front.siguiente;
+
+        if (front == null) {
+            back = null;
+        }
+
+        tamaño--;
+
+        return dato;
     }
 
-    public void mostrarPendientes() {
-        for (Ticket ticket : cola) {
-            System.out.println(ticket.getNombreCliente() +
-                    " - " + ticket.getAsunto() +
-                    " - " + ticket.getEstado());
+    // Primer elemento
+    public Ticket front() {
+
+        if (isEmpty()) {
+            System.out.println("La cola está vacía");
+            return null;
+        }
+
+        return front.dato;
+    }
+
+    // ¿Está vacía?
+    public boolean isEmpty() {
+        return front == null;
+    }
+
+    // Tamaño
+    public int size() {
+        return tamaño;
+    }
+
+    // Mostrar
+    public void mostrar() {
+
+        NodoCola actual = front;
+
+        while (actual != null) {
+
+            System.out.println(actual.dato.getNombreCliente());
+            System.out.println(actual.dato.getAsunto());
+            System.out.println(actual.dato.getPrioridad());
+            System.out.println(actual.dato.getEstado());
+
+            actual = actual.siguiente;
         }
     }
 }
