@@ -42,6 +42,7 @@ public class PanelPrincipalController {
 
                 JOptionPane.showMessageDialog(
                         vista.getPanel(),
+
                         "Ticket atendido:\n\n" +
                                 "Cliente: " + t.getNombreCliente() +
                                 "\nAsunto: " + t.getAsunto() +
@@ -73,15 +74,23 @@ public class PanelPrincipalController {
                 hayPendientes = true;
 
                 sb.append("Cliente: ").append(t.getNombreCliente())
+
                         .append("\nAsunto: ").append(t.getAsunto())
                         .append("\nPrioridad: ").append(t.getPrioridad())
                         .append("\nEstado: ").append(t.getEstado())
                         .append("\n\n");
+=======
+                        .append("Asunto: ").append(t.getAsunto())
+                        .append("Prioridad: ").append(t.getPrioridad())
+                        .append(" ");
+
             }
         }
 
         if (!hayPendientes) {
             sb.append("No hay tickets pendientes.");
+            sb.append("No hay tickets pendientes de atencion.");
+
         }
 
         JOptionPane.showMessageDialog(
