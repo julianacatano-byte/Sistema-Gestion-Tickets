@@ -4,8 +4,6 @@ import Controladores.PanelPrincipalController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -21,18 +19,6 @@ public class PanelPrincipal {
         this.controller = controller;
         inicializarComponentes();
         configurarEventos();
-        gestionarTicketsEnAtencionButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-        });
-        consultarTicketPendienteDeButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-        });
     }
 
     private void inicializarComponentes() {
@@ -72,14 +58,21 @@ public class PanelPrincipal {
         consultarHistorialDeEstadoButton.setPreferredSize(new Dimension(220, 40));
         gbc.gridx = 0;
         gbc.gridy = 3;
-        gbc.gridwidth = 2;
+        gbc.gridwidth = 1;
         panel1.add(consultarHistorialDeEstadoButton, gbc);
+
+        gestionarTicketsEnAtencionButton = new JButton("Gestionar tickets en Atencion");
+        gestionarTicketsEnAtencionButton.setPreferredSize(new Dimension(220, 40));
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel1.add(gestionarTicketsEnAtencionButton, gbc);
     }
 
     private void configurarEventos() {
         atenderTicketButton.addActionListener(e -> controller.onAtenderTicketClick());
         consultarTicketPendienteDeButton.addActionListener(e -> controller.onConsultarTicketPendienteClick());
         consultarHistorialDeEstadoButton.addActionListener(e -> controller.onConsultarHistorialClick());
+        gestionarTicketsEnAtencionButton.addActionListener(e -> controller.onGestionarTicketsEnAtencionClick());
     }
 
     public JPanel getPanel() {
@@ -87,7 +80,7 @@ public class PanelPrincipal {
     }
 
     public void mostrar() {
-        JFrame frame = new JFrame("Panel de Administraci\u00f3n");
+        JFrame frame = new JFrame("Panel de Administracion");
         frame.setContentPane(panel1);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(520, 300);

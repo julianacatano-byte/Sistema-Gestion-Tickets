@@ -1,6 +1,7 @@
 package Controladores;
 
 import Modelos.Ticket;
+import Vistas.GestionarTicketsEnAtencion;
 import Vistas.PanelPrincipal;
 
 import javax.swing.*;
@@ -30,6 +31,11 @@ public class PanelPrincipalController {
 
     public void onConsultarHistorialClick() {
         handleConsultarHistorialClick();
+    }
+
+    public void onGestionarTicketsEnAtencionClick() {
+        GestionarTicketsEnAtencion gestionar = new GestionarTicketsEnAtencion();
+        gestionar.mostrar();
     }
 
     private void handleAtenderTicketClick() {
