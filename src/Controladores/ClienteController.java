@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class ClienteController {
+
     private final List<Ticket> tickets;
     private final ColaTickets colaTickets;
     private ClienteForm vista;
@@ -33,41 +34,56 @@ public class ClienteController {
     }
 
     private void handleConfirmarClick() {
-        if (!validarCampos()) return;
+
+        if (!validarCampos()) {
+            return;
+        }
 
         String nombre = vista.getNombreField().getText().trim();
         String asunto = vista.getAsuntoField().getText().trim();
         String prioridad = (String) vista.getPrioridadCombo().getSelectedItem();
 
         Ticket ticket = new Ticket(nombre, asunto, prioridad);
+
+        // Se guarda en la lista que usa el proyecto
         tickets.add(ticket);
         colaTickets.encolar(ticket);
 
+
+        colaTickets.encolar(ticket);
+
         vista.marcarTicketCreado();
+
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
                 "Ticket creado exitosamente.\nNombre: " + nombre +
-                        "\nAsunto: " + asunto + "\nPrioridad: " + prioridad,
-                "\u00c9xito",
+                        "\nAsunto: " + asunto +
+                        "\nPrioridad: " + prioridad,
+                "Éxito",
                 JOptionPane.INFORMATION_MESSAGE
         );
+
         vista.cerrar();
         ventanaAnterior.mostrar();
     }
 
     private boolean validarCampos() {
+
         if (vista.getNombreField().getText().trim().isEmpty()) {
             mostrarError("Debe ingresar su nombre");
             return false;
         }
+
         if (vista.getAsuntoField().getText().trim().isEmpty()) {
             mostrarError("Debe ingresar el asunto");
             return false;
         }
+
         return true;
     }
 
     private void mostrarError(String mensaje) {
+
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
                 mensaje,

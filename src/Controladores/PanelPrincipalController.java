@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.util.List;
 
 public class PanelPrincipalController {
+
     private final List<Ticket> tickets;
     private final ColaTickets colaTickets;
     private final ListaDobleEnlazada listaAtencion;
@@ -107,19 +108,27 @@ public class PanelPrincipalController {
     }
 
     private void handleConsultarHistorialClick() {
+
         StringBuilder sb = new StringBuilder();
+
         if (tickets.isEmpty()) {
+
             sb.append("No se han registrado tickets.");
+
         } else {
+
             for (int i = 0; i < tickets.size(); i++) {
+
                 Ticket t = tickets.get(i);
-                sb.append(i + 1).append(". ").append(t.getNombreCliente())
-                        .append(" - ").append(t.getAsunto())
-                        .append(" [").append(t.getPrioridad()).append("]")
-                        .append(" - ").append(t.getEstado())
-                        .append("\n");
+
+                sb.append("Ticket ").append(i + 1).append("\n")
+                        .append("Cliente: ").append(t.getNombreCliente()).append("\n")
+                        .append("Asunto: ").append(t.getAsunto()).append("\n")
+                        .append("Prioridad: ").append(t.getPrioridad()).append("\n")
+                        .append("Estado: ").append(t.getEstado()).append("\n\n");
             }
         }
+
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
                 sb.toString(),
