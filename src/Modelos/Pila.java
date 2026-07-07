@@ -2,8 +2,8 @@ package Modelos;
 
 public class Pila {
 
-    NodoPila top;
-    int tamaño;
+    private NodoPila top;
+    private int tamaño;
 
     public Pila() {
         top = null;
@@ -14,11 +14,8 @@ public class Pila {
     public void push(String dato) {
 
         NodoPila nuevo = new NodoPila(dato);
-
         nuevo.siguiente = top;
-
         top = nuevo;
-
         tamaño++;
     }
 
@@ -26,20 +23,17 @@ public class Pila {
     public String pop() {
 
         if (isEmpty()) {
-            System.out.println("No hay estados para deshacer.");
             return null;
         }
 
         String dato = top.dato;
-
         top = top.siguiente;
-
         tamaño--;
 
         return dato;
     }
 
-    // Ver estado actual
+    // Ver el estado actual
     public String peek() {
 
         if (isEmpty()) {
@@ -49,26 +43,34 @@ public class Pila {
         return top.dato;
     }
 
-    // Saber si está vacía
+    // ¿Está vacía?
     public boolean isEmpty() {
         return top == null;
     }
 
-    // Tamaño
+    // Cantidad de estados
     public int size() {
         return tamaño;
     }
 
-    // Mostrar historial
-    public void mostrar() {
+    // Devuelve el historial en un String
+    public String mostrar() {
+
+        if (isEmpty()) {
+            return "No hay historial.";
+        }
+
+        StringBuilder sb = new StringBuilder();
 
         NodoPila actual = top;
 
         while (actual != null) {
 
-            System.out.println(actual.dato);
+            sb.append(actual.dato).append("\n");
 
             actual = actual.siguiente;
         }
+
+        return sb.toString();
     }
 }

@@ -2,9 +2,9 @@ package Modelos;
 
 public class ColaTickets {
 
-    NodoCola front;
-    NodoCola back;
-    int tamaño;
+    private NodoCola front;
+    private NodoCola back;
+    private int tamaño;
 
     public ColaTickets() {
         front = null;
@@ -12,10 +12,10 @@ public class ColaTickets {
         tamaño = 0;
     }
 
-    // Encolar
-    public void encolar(Ticket dato) {
+    // Encolar un ticket
+    public void encolar(Ticket ticket) {
 
-        NodoCola nuevo = new NodoCola(dato);
+        NodoCola nuevo = new NodoCola(ticket);
 
         if (isEmpty()) {
             front = nuevo;
@@ -28,15 +28,14 @@ public class ColaTickets {
         tamaño++;
     }
 
-
+    // Desencolar un ticket
     public Ticket desencolar() {
 
         if (isEmpty()) {
-            System.out.println("La cola está vacía");
             return null;
         }
 
-        Ticket dato = front.dato;
+        Ticket ticket = front.dato;
 
         front = front.siguiente;
 
@@ -46,43 +45,56 @@ public class ColaTickets {
 
         tamaño--;
 
-        return dato;
+        return ticket;
     }
 
-    // Primer elemento
+    // Obtener el primer ticket sin eliminarlo
     public Ticket front() {
 
         if (isEmpty()) {
-            System.out.println("La cola está vacía");
             return null;
         }
 
         return front.dato;
     }
 
-    // ¿Está vacía?
+    // Saber si la cola está vacía
     public boolean isEmpty() {
         return front == null;
     }
 
-    // Tamaño
+    // Tamaño de la cola
     public int size() {
         return tamaño;
     }
 
-    // Mostrar
-    public void mostrar() {
+    // Mostrar todos los tickets
+    public String mostrar() {
+
+        if (isEmpty()) {
+            return "No hay tickets en la cola.";
+        }
+
+        StringBuilder sb = new StringBuilder();
 
         NodoCola actual = front;
 
         while (actual != null) {
 
-            System.out.println(actual.dato.getNombreCliente());
-            System.out.println(actual.dato.getAsunto());
-            System.out.println(actual.dato.getPrioridad());
-            System.out.println(actual.dato.getEstado());
+            sb.append(actual.dato)
+                    .append("\n-----------------------------\n");
 
             actual = actual.siguiente;
         }
+
+        return sb.toString();
+    }
+
+    // Vaciar la cola
+    public void vaciar() {
+
+        front = null;
+        back = null;
+        tamaño = 0;
     }
 }

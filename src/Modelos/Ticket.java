@@ -1,9 +1,10 @@
 package Modelos;
 
 public class Ticket {
-    private static int contador = 0;
-    private int id;
 
+    private static int contador = 0;
+
+    private int id;
     private String nombreCliente;
     private String asunto;
     private String prioridad;
@@ -17,11 +18,9 @@ public class Ticket {
         this.nombreCliente = nombreCliente;
         this.asunto = asunto;
         this.prioridad = prioridad;
-
-        estado = "Nuevo";
+        this.estado = "Nuevo";
 
         historialEstados = new Pila();
-
         historialEstados.push(estado);
     }
 
@@ -33,8 +32,16 @@ public class Ticket {
         return nombreCliente;
     }
 
+    public void setNombreCliente(String nombreCliente) {
+        this.nombreCliente = nombreCliente;
+    }
+
     public String getAsunto() {
         return asunto;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
     }
 
     public String getPrioridad() {
@@ -53,34 +60,69 @@ public class Ticket {
         cambiarEstado(estado);
     }
 
-    // Cambiar estado del ticket
+    /**
+     * Cambia el estado del ticket y lo registra en el historial.
+     */
     public void cambiarEstado(String nuevoEstado) {
 
-        estado = nuevoEstado;
+        if (nuevoEstado == null || nuevoEstado.trim().isEmpty()) {
+            System.out.println("Estado inválido.");
+            return;
+        }
 
+        // Evita registrar el mismo estado dos veces seguidas
+        if (nuevoEstado.equals(estado)) {
+            return;
+        }
+
+        estado = nuevoEstado;
         historialEstados.push(estado);
     }
+
     
-    public void mostrarHistorial() {
-
-        historialEstados.mostrar();
+    public String mostrarHistorial() {
+        return historialEstados.mostrar();
     }
-
 
     public void deshacerEstado() {
 
         if (historialEstados.size() <= 1) {
-
             System.out.println("No se puede deshacer el estado inicial.");
             return;
         }
 
         historialEstados.pop();
         estado = historialEstados.peek();
+
         System.out.println("Estado actual: " + estado);
     }
 
     public Pila getHistorialEstados() {
         return historialEstados;
+    }
+
+    /**
+     * Muestra la información del ticket.
+     */
+    public void mostrarInfo() {
+
+        System.out.println("========== TICKET ==========");
+        System.out.println("ID: " + id);
+        System.out.println("Cliente: " + nombreCliente);
+        System.out.println("Asunto: " + asunto);
+        System.out.println("Prioridad: " + prioridad);
+        System.out.println("Estado: " + estado);
+        System.out.println("============================");
+    }
+
+    @Override
+    public String toString() {
+        return "Ticket{" +
+                "id=" + id +
+                ", nombreCliente='" + nombreCliente + '\'' +
+                ", asunto='" + asunto + '\'' +
+                ", prioridad='" + prioridad + '\'' +
+                ", estado='" + estado + '\'' +
+                '}';
     }
 }

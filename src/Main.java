@@ -20,15 +20,25 @@ public class Main {
             admins.add(new Administrador("root", "root123"));
 
             List<Ticket> tickets = new ArrayList<>();
+
+            // Cola de tickets
             ColaTickets colaTickets = new ColaTickets();
 
-            PanelPrincipalController panelPrincipalController = new PanelPrincipalController(tickets);
+            // Panel principal
+            PanelPrincipalController panelPrincipalController =
+                    new PanelPrincipalController(tickets, colaTickets);
 
-            AdminLoginController adminLoginController = new AdminLoginController(admins, panelPrincipalController);
+            // Login administrador
+            AdminLoginController adminLoginController =
+                    new AdminLoginController(admins, panelPrincipalController);
 
-            ClienteController clienteController = new ClienteController(tickets, colaTickets);
+            // Cliente
+            ClienteController clienteController =
+                    new ClienteController(tickets, colaTickets);
 
-            LoginController loginController = new LoginController(adminLoginController, clienteController);
+            // Login
+            LoginController loginController =
+                    new LoginController(adminLoginController, clienteController);
 
             LoginForm loginForm = new LoginForm(loginController);
 
