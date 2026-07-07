@@ -1,8 +1,9 @@
 package Modelos;
 
-import java.util.Stack;
+import Estructuras.Pila;
 
 public class Ticket {
+
     private static int contador = 0;
     private int id;
 
@@ -10,15 +11,18 @@ public class Ticket {
     private String asunto;
     private Prioridad prioridad;
     private Estado estado;
-
-    private Stack<String> historialEstados = new Stack<>();
+    private Pila<Estado> historialEstados;
 
     public Ticket(String nombreCliente, String asunto, Prioridad prioridad) {
         this.id = ++contador;
         this.nombreCliente = nombreCliente;
         this.asunto = asunto;
         this.prioridad = prioridad;
-        this.estado = Estado.PENDIENTE;
+
+        this.estado = Estado.NUEVO;
+
+        this.historialEstados = new Pila<>();
+        this.historialEstados.push(this.estado);
     }
 
     public int getId() {
@@ -57,36 +61,39 @@ public class Ticket {
         cambiarEstado(estado);
     }
 
+    // Cambiar el estado del ticket
     public void cambiarEstado(Estado nuevoEstado) {
-        if (historialEstados.isEmpty()) {
-            historialEstados.push(estado.name());
-        }
-        estado = nuevoEstado;
-        historialEstados.push(estado.name());
+        this.estado = nuevoEstado;
+        historialEstados.push(nuevoEstado);
     }
 
+    // Mostrar historial de estados
     public void mostrarHistorial() {
         if (historialEstados.isEmpty()) {
             System.out.println("No hay historial de estados.");
             return;
         }
+
         System.out.println("Historial del ticket:");
-        for (String est : historialEstados) {
-            System.out.println(est);
-        }
+        historialEstados.mostrar();
     }
 
+    // Deshacer el último cambio de estado
     public void deshacerEstado() {
+
         if (historialEstados.size() <= 1) {
-            System.out.println("No hay estados para deshacer.");
+            System.out.println("No se puede deshacer el estado inicial.");
             return;
         }
+
         historialEstados.pop();
-        estado = Estado.valueOf(historialEstados.peek());
+
+        estado = historialEstados.peek();
+
         System.out.println("Estado actual: " + estado.getDisplayName());
     }
 
-    public Stack<String> getHistorialEstados() {
+    public Pila<Estado> getHistorialEstados() {
         return historialEstados;
     }
 }
