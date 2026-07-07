@@ -19,6 +19,18 @@ public class ListaDobleEnlazada {
             cola = nuevo; // el nuevo ahora es la cola
         }
     }
+    public Ticket buscarPorNombre(String nombre) {
+        Nodo<Ticket> actual = cabeza;
+        while (actual != null) {
+            if (actual.getDato().getNombreCliente().equalsIgnoreCase(nombre.trim()) &&
+                    actual.getDato().getEstado().equals("En atención")) {
+                return actual.getDato();
+            }
+            actual = actual.getSiguiente();
+        }
+        return null;
+    }
+
     //Busca un ticket por su numero de ID y que este en estado "En atencion"
     public Ticket buscar(int id) {
         Nodo<Ticket> actual = cabeza; // empieza a buscar desde la cabeza

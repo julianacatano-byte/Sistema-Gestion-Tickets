@@ -40,7 +40,7 @@ public class PanelPrincipalController {
     }
 
     public void onGestionarTicketsEnAtencionClick() {
-        GestionarTicketsEnAtencion gestionar = new GestionarTicketsEnAtencion(listaAtencion);
+        GestionarTicketsEnAtencion gestionar = new GestionarTicketsEnAtencion();
         gestionar.mostrar();
     }
 
