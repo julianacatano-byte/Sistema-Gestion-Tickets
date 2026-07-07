@@ -1,86 +1,28 @@
 package Vistas;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class BuscarTicketsEnAtencion {
     private JPanel panel1;
-    private JTextField txtBuscarId;
+    private JTextField txtId;
     private JLabel lblResultado;
     private JButton buscarTicketButton;
 
     private JFrame frame;
     private final BuscarTicketCallback callback;
-    private JButton confirmarButton;
-    private JComboBox comboBox1;
-    private JTextField busquedaTextField;
 
     public interface BuscarTicketCallback {
-        String onBuscarTicket(String idTexto);
+        String onBuscarTicket(String nombre);
     }
 
     public BuscarTicketsEnAtencion(BuscarTicketCallback callback) {
         this.callback = callback;
-        inicializarComponentes();
         configurarEventos();
-        confirmarButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-        });
-        comboBox1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-            }
-        });
-    }
-
-    private void inicializarComponentes() {
-        panel1 = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(10, 15, 10, 15);
-
-        JLabel lblTitulo = new JLabel("Buscar tickets en atencion");
-        lblTitulo.setFont(new Font("Arial", Font.BOLD, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        panel1.add(lblTitulo, gbc);
-
-        JLabel lblId = new JLabel("ID del ticket:");
-        lblId.setFont(new Font("Arial", Font.PLAIN, 14));
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel1.add(lblId, gbc);
-
-        txtBuscarId = new JTextField(10);
-        txtBuscarId.setPreferredSize(new Dimension(150, 28));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel1.add(txtBuscarId, gbc);
-
-        buscarTicketButton = new JButton("Buscar ticket");
-        buscarTicketButton.setPreferredSize(new Dimension(200, 35));
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        panel1.add(buscarTicketButton, gbc);
-
-        lblResultado = new JLabel(" ");
-        lblResultado.setFont(new Font("Arial", Font.PLAIN, 13));
-        gbc.gridy = 3;
-        panel1.add(lblResultado, gbc);
     }
 
     private void configurarEventos() {
         buscarTicketButton.addActionListener(e -> {
-            String resultado = callback.onBuscarTicket(txtBuscarId.getText().trim());
+            String resultado = callback.onBuscarTicket(txtId.getText().trim());
             lblResultado.setText(resultado);
         });
     }

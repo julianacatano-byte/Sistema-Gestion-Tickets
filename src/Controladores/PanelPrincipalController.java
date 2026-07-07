@@ -1,8 +1,10 @@
 package Controladores;
 
+import Estructuras.ColaTickets;
 import Estructuras.ListaDobleEnlazada;
-import Modelos.ColaTickets;
+import Modelos.Estado;
 import Modelos.Ticket;
+import Vistas.BuscarTicketsEnAtencion;
 import Vistas.GestionarTicketsEnAtencion;
 import Vistas.IniciarAtencionDelSiguienteTicket;
 import Vistas.PanelPrincipal;
@@ -44,6 +46,26 @@ public class PanelPrincipalController {
         gestionar.mostrar();
     }
 
+    public void onBuscarTicketsEnAtencionClick() {
+        BuscarTicketsEnAtencion buscar = new BuscarTicketsEnAtencion(idStr -> {
+            try {
+                int id = Integer.parseInt(idStr.trim());
+                Ticket ticket = listaAtencion.buscar(id);
+                if (ticket != null) {
+                    return "ID: " + ticket.getId() +
+                            "\nCliente: " + ticket.getNombreCliente() +
+                            "\nAsunto: " + ticket.getAsunto() +
+                            "\nPrioridad: " + ticket.getPrioridadDisplay() +
+                            "\nEstado: " + ticket.getEstadoDisplay();
+                }
+                return "No se encontr\u00f3 un ticket en atenci\u00f3n con el ID \"" + id + "\".";
+            } catch (NumberFormatException e) {
+                return "El ID debe ser un n\u00famero v\u00e1lido.";
+            }
+        });
+        buscar.mostrar();
+    }
+
     private void handleAtenderTicketClick() {
         if (colaTickets.estaVacia()) {
             JOptionPane.showMessageDialog(
@@ -60,8 +82,8 @@ public class PanelPrincipalController {
         IniciarAtencionDelSiguienteTicket form = new IniciarAtencionDelSiguienteTicket(
                 ticket.getNombreCliente(),
                 ticket.getAsunto(),
-                ticket.getPrioridad(),
-                ticket.getEstado()
+                ticket.getPrioridadDisplay(),
+                ticket.getEstadoDisplay()
         );
 
         form.mostrar(vista.getPanel() != null ?
@@ -69,14 +91,14 @@ public class PanelPrincipalController {
 
         if (form.isAtencionIniciada()) {
             colaTickets.desencolar();
-            ticket.setEstado("En atención");
+            ticket.setEstado(Estado.EN_ATENCION);
             listaAtencion.agregar(ticket);
 
             JOptionPane.showMessageDialog(
                     vista.getPanel(),
-                    "Ticket en atencion:\nCliente: " + ticket.getNombreCliente() +
-                            "\nAsunto: " + ticket.getAsunto() +
-                            "\nPrioridad: " + ticket.getPrioridad(),
+                    "Ticket en atencion:Cliente: " + ticket.getNombreCliente() +
+                            "Asunto: " + ticket.getAsunto() +
+                            "Prioridad: " + ticket.getPrioridadDisplay(),
                     "Ticket en Atención",
                     JOptionPane.INFORMATION_MESSAGE
             );
@@ -92,9 +114,9 @@ public class PanelPrincipalController {
         } else {
             for (Ticket t : pendientes) {
                 sb.append("Cliente: ").append(t.getNombreCliente())
-                        .append("\nAsunto: ").append(t.getAsunto())
-                        .append("\nPrioridad: ").append(t.getPrioridad())
-                        .append("\n\n");
+                        .append("Asunto: ").append(t.getAsunto())
+                        .append("Prioridad: ").append(t.getPrioridadDisplay())
+                        .append(" ");
             }
         }
 
@@ -115,9 +137,9 @@ public class PanelPrincipalController {
                 Ticket t = tickets.get(i);
                 sb.append(i + 1).append(". ").append(t.getNombreCliente())
                         .append(" - ").append(t.getAsunto())
-                        .append(" [").append(t.getPrioridad()).append("]")
-                        .append(" - ").append(t.getEstado())
-                        .append("\n");
+                        .append(" [").append(t.getPrioridadDisplay()).append("]")
+                        .append(" - ").append(t.getEstadoDisplay())
+                        .append(" ");
             }
         }
         JOptionPane.showMessageDialog(

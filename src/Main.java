@@ -1,7 +1,7 @@
 import Controladores.*;
+import Estructuras.ColaTickets;
 import Estructuras.ListaDobleEnlazada;
 import Modelos.Administrador;
-import Modelos.ColaTickets;
 import Modelos.Ticket;
 import Vistas.LoginForm;
 

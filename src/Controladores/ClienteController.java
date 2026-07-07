@@ -1,6 +1,7 @@
 package Controladores;
 
-import Modelos.ColaTickets;
+import Estructuras.ColaTickets;
+import Modelos.Prioridad;
 import Modelos.Ticket;
 import Vistas.ClienteForm;
 import Vistas.LoginForm;
@@ -37,7 +38,7 @@ public class ClienteController {
 
         String nombre = vista.getNombreField().getText().trim();
         String asunto = vista.getAsuntoField().getText().trim();
-        String prioridad = (String) vista.getPrioridadCombo().getSelectedItem();
+        Prioridad prioridad = (Prioridad) vista.getPrioridadCombo().getSelectedItem();
 
         Ticket ticket = new Ticket(nombre, asunto, prioridad);
         tickets.add(ticket);
@@ -46,7 +47,8 @@ public class ClienteController {
         vista.marcarTicketCreado();
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
-                "Ticket creado exitosamente.\nNombre: " + nombre +
+                "Ticket creado exitosamente.\nID: " + ticket.getId() +
+                        "\nNombre: " + nombre +
                         "\nAsunto: " + asunto + "\nPrioridad: " + prioridad,
                 "\u00c9xito",
                 JOptionPane.INFORMATION_MESSAGE

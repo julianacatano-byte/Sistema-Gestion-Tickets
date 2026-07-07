@@ -3,7 +3,6 @@ package Vistas;
 import Controladores.LoginController;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class LoginForm {
     private JPanel panel1;
@@ -14,36 +13,7 @@ public class LoginForm {
 
     public LoginForm(LoginController controller) {
         this.controller = controller;
-        inicializarComponentes();
         configurarEventos();
-    }
-
-    private void inicializarComponentes() {
-        panel1 = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        JLabel titulo = new JLabel("Seleccione tipo de usuario");
-        titulo.setFont(new Font("Arial", Font.BOLD, 16));
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 10, 30, 10);
-        panel1.add(titulo, gbc);
-
-        administradorButton = new JButton("Administrador");
-        administradorButton.setPreferredSize(new Dimension(180, 40));
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(10, 20, 10, 10);
-        panel1.add(administradorButton, gbc);
-
-        clienteButton = new JButton("Cliente");
-        clienteButton.setPreferredSize(new Dimension(180, 40));
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.insets = new Insets(10, 10, 10, 20);
-        panel1.add(clienteButton, gbc);
     }
 
     private void configurarEventos() {
