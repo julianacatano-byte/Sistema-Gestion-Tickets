@@ -1,5 +1,6 @@
 package Controladores;
 
+import Modelos.ColaTickets;
 import Modelos.Ticket;
 import Vistas.ClienteForm;
 import Vistas.LoginForm;
@@ -9,11 +10,13 @@ import java.util.List;
 
 public class ClienteController {
     private final List<Ticket> tickets;
+    private final ColaTickets colaTickets;
     private ClienteForm vista;
     private LoginForm ventanaAnterior;
 
-    public ClienteController(List<Ticket> tickets) {
+    public ClienteController(List<Ticket> tickets, ColaTickets colaTickets) {
         this.tickets = tickets;
+        this.colaTickets = colaTickets;
     }
 
     public void setVentanaAnterior(LoginForm ventanaAnterior) {
@@ -38,6 +41,7 @@ public class ClienteController {
 
         Ticket ticket = new Ticket(nombre, asunto, prioridad);
         tickets.add(ticket);
+        colaTickets.encolar(ticket);
 
         vista.marcarTicketCreado();
         JOptionPane.showMessageDialog(
