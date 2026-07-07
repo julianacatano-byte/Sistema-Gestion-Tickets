@@ -1,8 +1,10 @@
 package Controladores;
 
+import Estructuras.ColaTickets;
 import Estructuras.ListaDobleEnlazada;
-import Modelos.ColaTickets;
+import Modelos.Estado;
 import Modelos.Ticket;
+import Vistas.BuscarTicketsEnAtencion;
 import Vistas.GestionarTicketsEnAtencion;
 import Vistas.IniciarAtencionDelSiguienteTicket;
 import Vistas.PanelPrincipal;
@@ -11,7 +13,6 @@ import javax.swing.*;
 import java.util.List;
 
 public class PanelPrincipalController {
-
     private final List<Ticket> tickets;
     private final ColaTickets colaTickets;
     private final ListaDobleEnlazada listaAtencion;
@@ -41,8 +42,28 @@ public class PanelPrincipalController {
     }
 
     public void onGestionarTicketsEnAtencionClick() {
-        GestionarTicketsEnAtencion gestionar = new GestionarTicketsEnAtencion();
+        GestionarTicketsEnAtencion gestionar = new GestionarTicketsEnAtencion(listaAtencion);
         gestionar.mostrar();
+    }
+
+    public void onBuscarTicketsEnAtencionClick() {
+        BuscarTicketsEnAtencion buscar = new BuscarTicketsEnAtencion(idStr -> {
+            try {
+                int id = Integer.parseInt(idStr.trim());
+                Ticket ticket = listaAtencion.buscar(id);
+                if (ticket != null) {
+                    return "ID: " + ticket.getId() +
+                            "\nCliente: " + ticket.getNombreCliente() +
+                            "\nAsunto: " + ticket.getAsunto() +
+                            "\nPrioridad: " + ticket.getPrioridadDisplay() +
+                            "\nEstado: " + ticket.getEstadoDisplay();
+                }
+                return "No se encontr\u00f3 un ticket en atenci\u00f3n con el ID \"" + id + "\".";
+            } catch (NumberFormatException e) {
+                return "El ID debe ser un n\u00famero v\u00e1lido.";
+            }
+        });
+        buscar.mostrar();
     }
 
     private void handleAtenderTicketClick() {
@@ -61,8 +82,8 @@ public class PanelPrincipalController {
         IniciarAtencionDelSiguienteTicket form = new IniciarAtencionDelSiguienteTicket(
                 ticket.getNombreCliente(),
                 ticket.getAsunto(),
-                ticket.getPrioridad(),
-                ticket.getEstado()
+                ticket.getPrioridadDisplay(),
+                ticket.getEstadoDisplay()
         );
 
         form.mostrar(vista.getPanel() != null ?
@@ -70,14 +91,14 @@ public class PanelPrincipalController {
 
         if (form.isAtencionIniciada()) {
             colaTickets.desencolar();
-            ticket.setEstado("En atención");
+            ticket.setEstado(Estado.EN_ATENCION);
             listaAtencion.agregar(ticket);
 
             JOptionPane.showMessageDialog(
                     vista.getPanel(),
-                    "Ticket en atencion:\nCliente: " + ticket.getNombreCliente() +
-                            "\nAsunto: " + ticket.getAsunto() +
-                            "\nPrioridad: " + ticket.getPrioridad(),
+                    "Ticket en atencion:Cliente: " + ticket.getNombreCliente() +
+                            "Asunto: " + ticket.getAsunto() +
+                            "Prioridad: " + ticket.getPrioridadDisplay(),
                     "Ticket en Atención",
                     JOptionPane.INFORMATION_MESSAGE
             );
@@ -93,9 +114,9 @@ public class PanelPrincipalController {
         } else {
             for (Ticket t : pendientes) {
                 sb.append("Cliente: ").append(t.getNombreCliente())
-                        .append("\nAsunto: ").append(t.getAsunto())
-                        .append("\nPrioridad: ").append(t.getPrioridad())
-                        .append("\n\n");
+                        .append("Asunto: ").append(t.getAsunto())
+                        .append("Prioridad: ").append(t.getPrioridadDisplay())
+                        .append(" ");
             }
         }
 
@@ -108,27 +129,19 @@ public class PanelPrincipalController {
     }
 
     private void handleConsultarHistorialClick() {
-
         StringBuilder sb = new StringBuilder();
-
         if (tickets.isEmpty()) {
-
             sb.append("No se han registrado tickets.");
-
         } else {
-
             for (int i = 0; i < tickets.size(); i++) {
-
                 Ticket t = tickets.get(i);
-
-                sb.append("Ticket ").append(i + 1).append("\n")
-                        .append("Cliente: ").append(t.getNombreCliente()).append("\n")
-                        .append("Asunto: ").append(t.getAsunto()).append("\n")
-                        .append("Prioridad: ").append(t.getPrioridad()).append("\n")
-                        .append("Estado: ").append(t.getEstado()).append("\n\n");
+                sb.append(i + 1).append(". ").append(t.getNombreCliente())
+                        .append(" - ").append(t.getAsunto())
+                        .append(" [").append(t.getPrioridadDisplay()).append("]")
+                        .append(" - ").append(t.getEstadoDisplay())
+                        .append(" ");
             }
         }
-
         JOptionPane.showMessageDialog(
                 vista.getPanel(),
                 sb.toString(),

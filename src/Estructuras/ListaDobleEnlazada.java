@@ -1,5 +1,7 @@
 package Estructuras;
 
+import Modelos.Estado;
+import Modelos.Prioridad;
 import Modelos.Ticket;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +25,7 @@ public class ListaDobleEnlazada {
         Nodo<Ticket> actual = cabeza;
         while (actual != null) {
             if (actual.getDato().getNombreCliente().equalsIgnoreCase(nombre.trim()) &&
-                    actual.getDato().getEstado().equals("En atención")) {
+                    actual.getDato().getEstado() == Estado.EN_ATENCION) {
                 return actual.getDato();
             }
             actual = actual.getSiguiente();
@@ -35,7 +37,7 @@ public class ListaDobleEnlazada {
     public Ticket buscar(int id) {
         Nodo<Ticket> actual = cabeza; // empieza a buscar desde la cabeza
         while (actual != null) { //recorre hasta el final de la lista
-            if (actual.getDato().getId() == id && actual.getDato().getEstado().equals("En atencion")) {
+            if (actual.getDato().getId() == id && actual.getDato().getEstado() == Estado.EN_ATENCION) {
                 return actual.getDato(); // lo encontro entonces lo devuelve
             }
             actual = actual.getSiguiente(); //pasa al siguiente
@@ -43,7 +45,7 @@ public class ListaDobleEnlazada {
         return null; // en otro caso, no encontro nada
     }
     //Cambiar la prioridad de un ticket que ya esta en la lista
-    public void cambiarPrioridad(Ticket ticket, String nuevaPrioridad) {
+    public void cambiarPrioridad(Ticket ticket, Prioridad nuevaPrioridad) {
 
         ticket.setPrioridad(nuevaPrioridad); // solo actualiza el dato o la prioridad, da lo mismo
     }
