@@ -36,7 +36,6 @@ public class GestionarTicketsEnAtencion {
         cambiarEstadoButton.addActionListener(e -> handleCambiarEstado());
         mostrarHistorialButton.addActionListener(e -> handleMostrarHistorial());
         deshacerEstadoButton.addActionListener(e -> handleDeshacerEstado());
-        cerrarTicketButton.addActionListener(e -> handleCerrarTicket());
         eliminarTicketButton.addActionListener(e -> handleEliminarTicket());
     }
 
@@ -205,29 +204,7 @@ public class GestionarTicketsEnAtencion {
     public JPanel getPanel() {
         return panel1;
     }
-    private void handleCerrarTicket() {
-
-        if (ticketActual == null) {
-            JOptionPane.showMessageDialog(
-                    frame,
-                    "Primero debe buscar un ticket."
-            );
-            return;
-        }
-
-        ticketActual.cambiarEstado(Estado.RESUELTO);
-
-        lista.eliminar(ticketActual);
-
-        JOptionPane.showMessageDialog(
-                frame,
-                "El ticket fue cerrado correctamente."
-        );
-
-        lblResultado.setText("");
-
-        ticketActual = null;
-    }
+    
     private void handleEliminarTicket() {
 
         if (ticketActual == null) {

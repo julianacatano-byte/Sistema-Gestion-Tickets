@@ -87,14 +87,6 @@
           <text value="Mostrar Historial"/>
         </properties>
       </component>
-      <component id="68497" class="javax.swing.JButton" binding="cerrarTicketButton" default-binding="true">
-        <constraints>
-          <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Cerrar Ticket"/>
-        </properties>
-      </component>
     </children>
   </grid>
 </form>
