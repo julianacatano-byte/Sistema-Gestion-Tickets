@@ -33,6 +33,14 @@ public class PanelPrincipal {
                 super.mouseClicked(e);
             }
         });
+
+        });
+        gestionarTicketsEnAtencionButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+            }
+        });
     }
 
     private void inicializarComponentes() {
