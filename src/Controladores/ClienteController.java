@@ -12,7 +12,6 @@ public class ClienteController {
 
     private final List<Ticket> tickets;
     private final ColaTickets colaTickets;
-
     private ClienteForm vista;
     private LoginForm ventanaAnterior;
 
@@ -48,6 +47,7 @@ public class ClienteController {
 
         // Se guarda en la lista que usa el proyecto
         tickets.add(ticket);
+        colaTickets.encolar(ticket);
 
 
         colaTickets.encolar(ticket);

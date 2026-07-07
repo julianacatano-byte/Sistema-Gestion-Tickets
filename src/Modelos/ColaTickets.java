@@ -1,5 +1,10 @@
 package Modelos;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 public class ColaTickets {
 
     NodoCola front;
@@ -49,40 +54,23 @@ public class ColaTickets {
         return dato;
     }
 
-    // Primer elemento
-    public Ticket front() {
-
-        if (isEmpty()) {
-            System.out.println("La cola está vacía");
-            return null;
-        }
-
-        return front.dato;
+    public Ticket peek() {
+        return cola.peek();
     }
 
-    // ¿Está vacía?
-    public boolean isEmpty() {
-        return front == null;
+    public boolean estaVacia() {
+        return cola.isEmpty();
     }
 
-    // Tamaño
-    public int size() {
-        return tamaño;
+    public List<Ticket> getTodos() {
+        return new ArrayList<>(cola);
     }
 
-    // Mostrar
-    public void mostrar() {
-
-        NodoCola actual = front;
-
-        while (actual != null) {
-
-            System.out.println(actual.dato.getNombreCliente());
-            System.out.println(actual.dato.getAsunto());
-            System.out.println(actual.dato.getPrioridad());
-            System.out.println(actual.dato.getEstado());
-
-            actual = actual.siguiente;
+    public void mostrarPendientes() {
+        for (Ticket ticket : cola) {
+            System.out.println(ticket.getNombreCliente() +
+                    " - " + ticket.getAsunto() +
+                    " - " + ticket.getEstado());
         }
     }
 }

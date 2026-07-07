@@ -1,4 +1,5 @@
 import Controladores.*;
+import Estructuras.ListaDobleEnlazada;
 import Modelos.Administrador;
 import Modelos.ColaTickets;
 import Modelos.Ticket;
@@ -21,13 +22,11 @@ public class Main {
 
             List<Ticket> tickets = new ArrayList<>();
             ColaTickets colaTickets = new ColaTickets();
+            ListaDobleEnlazada listaAtencion = new ListaDobleEnlazada();
 
-            PanelPrincipalController panelPrincipalController = new PanelPrincipalController(tickets);
-
+            PanelPrincipalController panelPrincipalController = new PanelPrincipalController(tickets, colaTickets, listaAtencion);
             AdminLoginController adminLoginController = new AdminLoginController(admins, panelPrincipalController);
-
             ClienteController clienteController = new ClienteController(tickets, colaTickets);
-
             LoginController loginController = new LoginController(adminLoginController, clienteController);
 
             LoginForm loginForm = new LoginForm(loginController);
