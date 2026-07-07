@@ -106,17 +106,24 @@ public class PanelPrincipalController {
     }
 
     private void handleConsultarTicketPendienteClick() {
+
         List<Ticket> pendientes = colaTickets.getTodos();
         StringBuilder sb = new StringBuilder();
 
         if (pendientes.isEmpty()) {
-            sb.append("No hay tickets pendientes de atencion.");
+
+            sb.append("No hay tickets pendientes de atención.");
+
         } else {
+
             for (Ticket t : pendientes) {
-                sb.append("Cliente: ").append(t.getNombreCliente())
-                        .append("Asunto: ").append(t.getAsunto())
-                        .append("Prioridad: ").append(t.getPrioridadDisplay())
-                        .append(" ");
+
+                sb.append("ID: ").append(t.getId())
+                        .append("\nCliente: ").append(t.getNombreCliente())
+                        .append("\nAsunto: ").append(t.getAsunto())
+                        .append("\nPrioridad: ").append(t.getPrioridadDisplay())
+                        .append("\nEstado: ").append(t.getEstadoDisplay())
+                        .append("\n------------------------------\n");
             }
         }
 
@@ -148,5 +155,60 @@ public class PanelPrincipalController {
                 "Historial de Tickets",
                 JOptionPane.INFORMATION_MESSAGE
         );
+    }
+    private void handleMostrarInicioFin() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Ticket t : listaAtencion.recorrerInicioFin()) {
+
+            sb.append("ID: ").append(t.getId())
+                    .append(" | Cliente: ").append(t.getNombreCliente())
+                    .append(" | Asunto: ").append(t.getAsunto())
+                    .append(" | Estado: ").append(t.getEstadoDisplay())
+                    .append("\n");
+        }
+
+        if (sb.length() == 0) {
+            sb.append("No hay tickets en atención.");
+        }
+
+        JOptionPane.showMessageDialog(
+                vista.getPanel(),
+                sb.toString(),
+                "Tickets en Atención (Inicio → Fin)",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    private void handleMostrarFinInicio() {
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Ticket t : listaAtencion.recorrerFinInicio()) {
+
+            sb.append("ID: ").append(t.getId())
+                    .append(" | Cliente: ").append(t.getNombreCliente())
+                    .append(" | Asunto: ").append(t.getAsunto())
+                    .append(" | Estado: ").append(t.getEstadoDisplay())
+                    .append("\n");
+        }
+
+        if (sb.length() == 0) {
+            sb.append("No hay tickets en atención.");
+        }
+
+        JOptionPane.showMessageDialog(
+                vista.getPanel(),
+                sb.toString(),
+                "Tickets en Atención (Fin → Inicio)",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+    public void onMostrarInicioFin() {
+        handleMostrarInicioFin();
+    }
+
+    public void onMostrarFinInicio() {
+        handleMostrarFinInicio();
     }
 }

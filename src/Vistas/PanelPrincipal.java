@@ -13,6 +13,8 @@ public class PanelPrincipal {
     private JButton consultarHistorialDeEstadoButton;
     private JButton gestionarTicketsEnAtencionButton;
     private JButton buscarTicketsEnAtencionButton;
+    private JButton mostrarTicketInicioFinButton;
+    private JButton mostrarTicketFinInicioButton;
     private final PanelPrincipalController controller;
 
     public PanelPrincipal(PanelPrincipalController controller) {
@@ -26,6 +28,10 @@ public class PanelPrincipal {
         consultarHistorialDeEstadoButton.addActionListener(e -> controller.onConsultarHistorialClick());
         gestionarTicketsEnAtencionButton.addActionListener(e -> controller.onGestionarTicketsEnAtencionClick());
         buscarTicketsEnAtencionButton.addActionListener(e -> controller.onBuscarTicketsEnAtencionClick());
+        mostrarTicketInicioFinButton.addActionListener(e -> controller.onMostrarInicioFin());
+        mostrarTicketFinInicioButton.addActionListener(e -> controller.onMostrarFinInicio());
+       
+
     }
 
     public JPanel getPanel() {
